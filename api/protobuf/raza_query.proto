@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package raza;
+option go_package = "lib/raza";
+
+import "raza_messages.proto";
+
+service RazaQuery {
+  rpc GetSessions(GetSessionsRequest) returns (stream Session) {}
+  rpc GetCommands(GetCommandsRequest) returns (stream Command) {}
+}
+
+message GetSessionsRequest{}
+message GetCommandsRequest{}

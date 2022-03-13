@@ -1,4 +1,7 @@
 # raza : keep history forever
+
+## Overview
+
 I want to build an app that:
 * synchronizes shell history and keeps it forever
 * across multiple devices
@@ -15,6 +18,7 @@ I want to build an app that:
 * query history quickly from the local device
 * works offline if wanted, easy setup of daemon
     * can gather history until it is back online again and synchronizes
+* make a little webapp to search history, say when you are at another person's computer
 
 There are different aspects to design:
 * data schema
@@ -40,7 +44,6 @@ Let’s look at this to see how they hook into zsh: [GitHub - larkery/zsh-histdb
 
 It seems the magic is done through the `zsh-add-hook zshaddhistory`
 * [mastering-zsh/hooks.md at master · rothgar/mastering-zsh · GitHub](https://github.com/rothgar/mastering-zsh/blob/master/docs/config/hooks.md)
-*
 
 ## Configuration options
 * filter out certain comments
@@ -65,5 +68,6 @@ It seems the magic is done through the `zsh-add-hook zshaddhistory`
     * per directory
     * per git repo
     * per git branch
+* start session "transaction"
 * restrict where to look for history (per directory with a file? With some environment variables?)
 * can we recognize in which session the client runs, and then store the config that in the backend server so that we don’t’ have to set environment variables and the like?

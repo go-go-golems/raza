@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+package raza;
+option go_package = "lib/raza";
+
+service RazaUser {
+}
+

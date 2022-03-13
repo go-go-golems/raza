@@ -1,0 +1,54 @@
+syntax = "proto3";
+
+package raza;
+option go_package =  "lib/raza";
+
+import "raza_messages.proto";
+
+service RazaShellWrapper {
+  rpc StartSession(StartSessionRequest) returns (StartSessionResponse) {}
+  rpc EndSession(EndSessionRequest) returns (EndSessionResponse) {}
+  rpc StartCommand(StartCommandRequest) returns (StartCommandResponse) {}
+  rpc EndCommand(EndCommandRequest) returns (EndCommandResponse) {}
+}
+
+message StartSessionRequest {
+  string host = 1;
+  string user = 2;
+  int64 start_time_epoch_s = 3;
+}
+
+message StartSessionResponse {
+  int64 session_id = 1;
+}
+
+message EndSessionRequest {
+  int64 session_id = 1;
+  int64 end_time_epoch_s = 2;
+}
+
+message EndSessionResponse {
+  Session session = 1;
+}
+
+message StartCommandRequest {
+  int64 session_id = 1;
+  string cmd = 2;
+  string pwd = 3;
+  int64 start_time_epoch_s = 4;
+  repeated MetadataEntry metadata = 5;
+}
+
+message StartCommandResponse {
+  int64 command_id = 1;
+}
+
+message EndCommandRequest {
+  int64 session_id = 1;
+  int32 retval = 2;
+  int64 end_time_epoch_s = 3;
+}
+
+message EndCommandResponse {
+  Command command = 1;
+}

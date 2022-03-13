@@ -9,7 +9,6 @@ _raza_init() {
 
 _raza_addhistory() {
   _raza_init
-  echo $RAZA_SESSION
   raza _shell add --cmd "$*" --pwd "$(pwd)" --start_time "${EPOCHSECONDS}" --session "$RAZA_SESSION"
 }
 
