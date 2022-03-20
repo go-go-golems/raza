@@ -1,7 +1,7 @@
 ## Todos
 
-* add zerolog structured logging
-* add viper configuration
+* [x] add zerolog structured logging RAZA-1
+* [x] add viper configuration RAZA-2
 * start daemon when needed
 * generate sql stubs using xo
 
