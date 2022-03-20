@@ -76,7 +76,7 @@ func main() {
 	rootCmd.PersistentFlags().String("address", defaultRazaAddress, "The address of the raza server")
 	rootCmd.PersistentFlags().Bool("debug", false, "Enable debug logging")
 	rootCmd.PersistentFlags().Bool("log-error-stacktrace", false, "Enable stacktrace logging on errors")
-	rootCmd.PersistentFlags().Bool("log-line", false, "Enable logging of file ane line number")
+	rootCmd.PersistentFlags().Bool("log-line", true, "Enable logging of file ane line number")
 	rootCmd.PersistentFlags().String("log-file", "", "Enable logging to file")
 	if err := viperBindNestedPFlags("root", &rootCmd,
 		[]string{"address", "debug", "log-error-stacktrace", "log-line", "log-file"}); err != nil {
