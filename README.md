@@ -1,5 +1,8 @@
 # raza : keep history forever
 
+![](https://img.shields.io/github/license/wesen/raza)
+![](https://img.shields.io/github/workflow/status/wesen/raza/golang-pipeline)
+
 raza is a tool (client, server) meant to keep your shell history forever,
 across devices. Every command you enter is stored in a database, and available
 for query. It automatically synchronizes across devices, and works even if you are offline.
