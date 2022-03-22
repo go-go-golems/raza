@@ -2,6 +2,8 @@ name: golang-pipeline
 
 on:
   push:
+    branches:
+      - 'main'
   pull_request:
 
 jobs:
