@@ -17,14 +17,22 @@ import (
 )
 
 var rootCmd = cobra.Command{
-	Run: func(cmd *cobra.Command, args []string) {
+	PersistentPreRun: func(cmd *cobra.Command, args []string) {
 		zerolog.TimeFieldFormat = zerolog.TimeFormatUnix
+
+		zerolog.SetGlobalLevel(zerolog.InfoLevel)
+
+		if viper.GetBool("root.debug") {
+			zerolog.SetGlobalLevel(zerolog.DebugLevel)
+		}
 
 		file := viper.GetString("root.log-file")
 		if file == "" {
 			if isatty.IsTerminal(os.Stderr.Fd()) {
+				log.Debug().Msg("stderr is a terminal")
 				log.Logger = log.Output(zerolog.ConsoleWriter{Out: os.Stderr, TimeFormat: time.RFC3339})
 			} else {
+				log.Debug().Msg("stderr is not a terminal")
 				log.Logger = log.Output(os.Stderr)
 			}
 		} else {
@@ -32,6 +40,7 @@ var rootCmd = cobra.Command{
 			if err != nil {
 				log.Fatal().Err(err).Msgf("Could not open log file %s", file)
 			}
+			log.Debug().Str("log-file", file).Msg("Logging to file")
 			log.Logger = log.Output(w)
 		}
 
@@ -39,14 +48,8 @@ var rootCmd = cobra.Command{
 			log.Logger = log.With().Caller().Logger()
 		}
 
-		log.Info().Msg("Starting raza...")
-		zerolog.SetGlobalLevel(zerolog.InfoLevel)
-
-		if viper.GetBool("root.debug") {
-			zerolog.SetGlobalLevel(zerolog.DebugLevel)
-		}
 		if viper.GetBool("root.log-error-stacktrace") {
-			log.Info().Msg("Logging error stacktraces")
+			log.Debug().Msg("Logging error stacktraces")
 			zerolog.ErrorStackMarshaler = pkgerrors.MarshalStack
 		}
 	},
@@ -70,7 +73,7 @@ func main() {
 	viper.SetConfigName("raza")
 	viper.AddConfigPath("$HOME/.config")
 	if err := viper.ReadInConfig(); err != nil {
-		log.Error().Err(err).Msg("Failed to read config")
+		log.Debug().Err(err).Msg("Failed to read config")
 	}
 
 	rootCmd.PersistentFlags().String("address", defaultRazaAddress, "The address of the raza server")
