@@ -12,13 +12,10 @@ builds:
     binary: program
     goarch:
       - amd64
-      - arm
       - arm64
     goos:
       - linux
-      - windows
       - darwin
-      - freebsd
 archives:
   - replacements:
       darwin: Darwin
