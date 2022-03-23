@@ -21,7 +21,7 @@ CREATE TABLE commands
     cmd                TEXT    NOT NULL,
     pwd                TEXT    NOT NULL,
     start_time_epoch_s INTEGER NOT NULL,
-    end_time_epoch_s INTEGER,
+    end_time_epoch_s INTEGER NOT NULL,
     FOREIGN KEY (session_id) REFERENCES sessions (id)
 );
 CREATE INDEX commands_session_idx ON commands (session_id);
