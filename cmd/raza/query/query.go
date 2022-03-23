@@ -24,7 +24,7 @@ var ListSessionsCmd = cobra.Command{
 
 		res, err := c.GetSessions(ctx, &raza.GetSessionsRequest{})
 		if err != nil {
-			cmd.PrintErrf("Could not list sessions\n")
+			cmd.PrintErrf("Could not list sessions: %s\n", err.Error())
 		}
 
 		for {
@@ -33,7 +33,7 @@ var ListSessionsCmd = cobra.Command{
 				break
 			}
 			if err != nil {
-				cmd.PrintErrln("Could not list sessions")
+				cmd.PrintErrf("Could not list sessions: %s\n", err.Error())
 				return
 			}
 			cmd.Printf("%v\n", session)
