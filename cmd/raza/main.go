@@ -72,8 +72,11 @@ const (
 func main() {
 	viper.SetConfigName("raza")
 	viper.AddConfigPath("$HOME/.config")
+	zerolog.SetGlobalLevel(zerolog.InfoLevel)
+
 	if err := viper.ReadInConfig(); err != nil {
-		log.Debug().Err(err).Msg("Failed to read config")
+		// never show this error for now
+		log.Trace().Err(err).Msg("Failed to read config")
 	}
 
 	rootCmd.PersistentFlags().String("address", defaultRazaAddress, "The address of the raza server")

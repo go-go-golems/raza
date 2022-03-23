@@ -48,7 +48,7 @@ var AddHookCmd = cobra.Command{
 
 var PreHookCmd = cobra.Command{
 	Use:   "pre",
-	Short: "Run as a pre hook to compute command timem and retval",
+	Short: "Run as a pre hook to compute command time and retval",
 	Run: func(cmd *cobra.Command, args []string) {
 		session, _ := cmd.Flags().GetInt64("session")
 		endTime, _ := cmd.Flags().GetInt64("end_time")
@@ -60,7 +60,7 @@ var PreHookCmd = cobra.Command{
 		}
 		defer closeClient()
 
-		_, err = c.EndCommand(ctx, &raza.EndCommandRequest{
+		_, err = c.EndSessionsLastCommand(ctx, &raza.EndSessionsLastCommandRequest{
 			SessionId:     session,
 			EndTimeEpochS: endTime,
 			Retval:        retval,

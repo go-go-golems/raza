@@ -9,11 +9,13 @@ _raza_init() {
 
 _raza_addhistory() {
   _raza_init
+  echo raza _shell add --cmd "$*" --pwd "$(pwd)" --start_time "${EPOCHSECONDS}" --session "$RAZA_SESSION"
   raza _shell add --cmd "$*" --pwd "$(pwd)" --start_time "${EPOCHSECONDS}" --session "$RAZA_SESSION"
 }
 
 _raza_precmd() {
   _raza_init
+  echo raza _shell pre --retval "$?" --end_time "${EPOCHSECONDS}" --session "$RAZA_SESSION"
   raza _shell pre --retval "$?" --end_time "${EPOCHSECONDS}" --session "$RAZA_SESSION"
 }
 

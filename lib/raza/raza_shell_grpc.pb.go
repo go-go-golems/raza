@@ -25,7 +25,7 @@ type RazaShellWrapperClient interface {
 	StartSession(ctx context.Context, in *StartSessionRequest, opts ...grpc.CallOption) (*StartSessionResponse, error)
 	EndSession(ctx context.Context, in *EndSessionRequest, opts ...grpc.CallOption) (*EndSessionResponse, error)
 	StartCommand(ctx context.Context, in *StartCommandRequest, opts ...grpc.CallOption) (*StartCommandResponse, error)
-	EndCommand(ctx context.Context, in *EndCommandRequest, opts ...grpc.CallOption) (*EndCommandResponse, error)
+	EndSessionsLastCommand(ctx context.Context, in *EndSessionsLastCommandRequest, opts ...grpc.CallOption) (*EndCommandResponse, error)
 }
 
 type razaShellWrapperClient struct {
@@ -63,9 +63,9 @@ func (c *razaShellWrapperClient) StartCommand(ctx context.Context, in *StartComm
 	return out, nil
 }
 
-func (c *razaShellWrapperClient) EndCommand(ctx context.Context, in *EndCommandRequest, opts ...grpc.CallOption) (*EndCommandResponse, error) {
+func (c *razaShellWrapperClient) EndSessionsLastCommand(ctx context.Context, in *EndSessionsLastCommandRequest, opts ...grpc.CallOption) (*EndCommandResponse, error) {
 	out := new(EndCommandResponse)
-	err := c.cc.Invoke(ctx, "/raza.RazaShellWrapper/EndCommand", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/raza.RazaShellWrapper/EndSessionsLastCommand", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -79,7 +79,7 @@ type RazaShellWrapperServer interface {
 	StartSession(context.Context, *StartSessionRequest) (*StartSessionResponse, error)
 	EndSession(context.Context, *EndSessionRequest) (*EndSessionResponse, error)
 	StartCommand(context.Context, *StartCommandRequest) (*StartCommandResponse, error)
-	EndCommand(context.Context, *EndCommandRequest) (*EndCommandResponse, error)
+	EndSessionsLastCommand(context.Context, *EndSessionsLastCommandRequest) (*EndCommandResponse, error)
 	mustEmbedUnimplementedRazaShellWrapperServer()
 }
 
@@ -96,8 +96,8 @@ func (UnimplementedRazaShellWrapperServer) EndSession(context.Context, *EndSessi
 func (UnimplementedRazaShellWrapperServer) StartCommand(context.Context, *StartCommandRequest) (*StartCommandResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method StartCommand not implemented")
 }
-func (UnimplementedRazaShellWrapperServer) EndCommand(context.Context, *EndCommandRequest) (*EndCommandResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method EndCommand not implemented")
+func (UnimplementedRazaShellWrapperServer) EndSessionsLastCommand(context.Context, *EndSessionsLastCommandRequest) (*EndCommandResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method EndSessionsLastCommand not implemented")
 }
 func (UnimplementedRazaShellWrapperServer) mustEmbedUnimplementedRazaShellWrapperServer() {}
 
@@ -166,20 +166,20 @@ func _RazaShellWrapper_StartCommand_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
-func _RazaShellWrapper_EndCommand_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(EndCommandRequest)
+func _RazaShellWrapper_EndSessionsLastCommand_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(EndSessionsLastCommandRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(RazaShellWrapperServer).EndCommand(ctx, in)
+		return srv.(RazaShellWrapperServer).EndSessionsLastCommand(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/raza.RazaShellWrapper/EndCommand",
+		FullMethod: "/raza.RazaShellWrapper/EndSessionsLastCommand",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(RazaShellWrapperServer).EndCommand(ctx, req.(*EndCommandRequest))
+		return srv.(RazaShellWrapperServer).EndSessionsLastCommand(ctx, req.(*EndSessionsLastCommandRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -204,8 +204,8 @@ var RazaShellWrapper_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _RazaShellWrapper_StartCommand_Handler,
 		},
 		{
-			MethodName: "EndCommand",
-			Handler:    _RazaShellWrapper_EndCommand_Handler,
+			MethodName: "EndSessionsLastCommand",
+			Handler:    _RazaShellWrapper_EndSessionsLastCommand_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
