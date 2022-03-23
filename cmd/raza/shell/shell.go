@@ -9,6 +9,7 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/wesen/raza/cmd/raza/helpers"
 	"github.com/wesen/raza/lib/raza"
+	"strings"
 	"time"
 )
 
@@ -34,7 +35,7 @@ var AddHookCmd = cobra.Command{
 
 		_, err = c.StartCommand(ctx, &raza.StartCommandRequest{
 			SessionId:       session,
-			Cmd:             command,
+			Cmd:             strings.TrimSpace(command),
 			Pwd:             pwd,
 			StartTimeEpochS: startTime,
 			Metadata:        nil,
