@@ -20,6 +20,7 @@
 * should we be able to add tags to a session as it is running?
 * what about categorizing sessions and commands after the fact?
 * Potentially flagging / bookmarking / making curated selections of commands in the UI
+* Ignore failed commands
 
 * can we record the commands executed by a shell script, for example logging the execution of a shell script to our history?
 
