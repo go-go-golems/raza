@@ -25,3 +25,81 @@ root:
   log-line: true|false # (default true) log linenumber
 ```
 
+
+```
+there exists some code that transforms:
+
+flags = --day 2022-03-25 --select "*aws*" --tally
+
+parsedFlags = parseFlags(flags)
+
+parsedFlags = {
+   day: 2022-03-25,
+   select: '*aws*',
+   tally: true
+}
+
+abstractQuery = buildAbstractQuery(parsedFlags)
+
+abstractQuery = 
+{ 
+   day: 2022-03-25,
+   query: {
+      type:aggregate,
+      aggregation: count,
+      filter: {
+         column: 'name',
+         filter: '*aws*'
+      }
+   },
+   from: tables.commands
+}
+
+selectStatement = buildSelectStatement(abstractQuery)
+into:
+SELECT COUNT(*) FROM commands WHERE command LIKE '%aws%' AND day='2022-03-25'
+
+explainedSelectAggregateStatement = buildSelectStatement(abstractQuery, explain=true)
+into:
+EXPLAIN SELECT COUNT(*) FROM commands WHERE command LIKE '%aws%' AND day='2022-03-25'
+
+rawDataSelectStatement = buildSelectStatement(abstractQuery, explain=true)
+into:
+SELECT * FROM commands WHERE command LIKE '%aws%' AND day='2022-03-25'
+
+---
+flags = --tally \
+     --from 2022-03 --to 2022-05 \
+     --filter repo=my-big-aws-project \
+     --select "*deploy*" \
+     --sparklines
+
+parsedFlags = {
+   dateRange: {
+      from: 2022-03,
+      to: 2022-05
+   },
+   select: '*aws*',
+   filter: 
+   tally: true
+}
+
+abstractQuery = buildAbstractQuery(parsedFlags)
+
+abstractQuery = 
+{ 
+   day: 2022-03-25,
+   query: {
+      type:aggregate,
+      aggregation: count,
+      filter: {
+         column: 'name',
+         filter: '*aws*'
+      },
+      groupBy: {
+         time: day
+      }
+   },
+   from: tables.commands
+} 
+```

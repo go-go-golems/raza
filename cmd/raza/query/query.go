@@ -72,5 +72,7 @@ var ListCommandsCmd = cobra.Command{
 
 func init() {
 	QueryCmd.AddCommand(&ListSessionsCmd)
+
 	QueryCmd.AddCommand(&ListCommandsCmd)
+	QueryCmd.Flags().String("query", "", "RQL query")
 }
