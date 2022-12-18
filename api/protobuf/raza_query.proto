@@ -11,4 +11,6 @@ service RazaQuery {
 }
 
 message GetSessionsRequest{}
-message GetCommandsRequest{}
+message GetCommandsRequest{
+  string query = 1;
+}

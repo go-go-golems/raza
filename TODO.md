@@ -27,4 +27,5 @@
 ## Deprecated ideas
 
 * generate sql stubs using xo ??
+* how can we implement fast smartsearch on the backend? is sqlite even a good choice, or should we leverage a tool like rg / fzf?
 
