@@ -9,7 +9,7 @@ builds:
   - env:
       - CGO_ENABLED=0
     main: ./cmd/raza
-    binary: program
+    binary: raza
     goarch:
       - amd64
       - arm64
