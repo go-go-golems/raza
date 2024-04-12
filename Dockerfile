@@ -4,7 +4,7 @@ ARG VERSION=dev
 
 WORKDIR /go/src/app
 COPY . .
-RUN go build -o raza -ldflags=-X=main.version=${VERSION} ./cmd/raza
+RUN go build -o raza -ldflags=-X=main.go.go.version=${VERSION} ./cmd/raza
 
 FROM debian:buster-slim
 COPY --from=builder /go/src/app/raza /go/bin/raza
